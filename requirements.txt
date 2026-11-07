@@ -1,0 +1,12 @@
+# Dependencies untuk Proyek Visualisasi Data Runtun Waktu COVID-19
+# Python 3.9+ direkomendasikan
+
+pandas>=2.0.0
+numpy>=1.24.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Jupyter environment untuk menjalankan notebook
+ipykernel>=6.20.0
+notebook>=7.0.0
+

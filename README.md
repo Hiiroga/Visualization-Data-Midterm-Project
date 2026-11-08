@@ -78,75 +78,71 @@ MIDTERM/
 
 ---
 
-## Panduan Setup Cepat & Menjalankan Proyek
+## Panduan Setup & Menjalankan Proyek
 
-Pastikan di komputer Anda telah terpasang **Python 3.9** atau versi lebih baru (diunduh dari [python.org](https://www.python.org/downloads/)).
+### Prasyarat
 
-### Metode 1: Menggunakan Visual Studio Code (Paling Direkomendasikan)
+- **Python 3.9+** — unduh dari [python.org](https://www.python.org/downloads/)
+- **Jupyter** — bisa via [VS Code](https://code.visualstudio.com/) (paling mudah) atau Jupyter Classic
 
-Metode ini adalah cara paling mudah dan interaktif:
-
-1. **Buka Folder Proyek di VS Code:**
-   - Jalankan VS Code.
-   - Pilih menu **File > Open Folder...**, kemudian arahkan ke folder proyek ini (`c:\Data D\Semester 7\VISDAT\MIDTERM`).
-
-2. **Buka Terminal di VS Code:**
-   - Tekan shortcut `` Ctrl + ` `` (Backtick) atau pilih menu **Terminal > New Terminal**.
-
-3. **Buat dan Aktifkan Virtual Environment:**
-   *Pada Windows (PowerShell):*
-   ```powershell
-   python -m venv .venv
-   .\.venv\Scripts\Activate.ps1
-   ```
-   *(Jika muncul error Execution Policy pada PowerShell, jalankan `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` lalu ulangi perintah aktivasi).*
-
-   *Pada macOS/Linux:*
-   ```bash
-   python3 -m venv .venv
-   source .venv/bin/activate
-   ```
-
-4. **Instal Pustaka yang Dibutuhkan:**
-   ```bash
-   pip install --upgrade pip
-   pip install -r requirements.txt
-   ```
-
-5. **Jalankan Notebook:**
-   - Di panel kiri VS Code, klik file **`covid19_time_series_visualization.ipynb`**.
-   - Pada pojok kanan atas editor notebook, klik **Select Kernel** > pilih **Python Environments...** > pilih interpreter `.venv` yang baru dibuat.
-   - Klik tombol **Run All** (atau jalankan sel satu per satu dari atas ke bawah).
-   - Seluruh tabel output, statistik deskriptif, dan visualisasi akan langsung ter-render dengan sempurna.
+> **Notebook ini memiliki sel auto-install di bagian atas.**  
+> Ketika dijalankan pada komputer baru, sel pertama kode akan secara otomatis memeriksa dan menginstal semua pustaka yang belum ada. Anda **tidak perlu** menjalankan `pip install` secara manual.
 
 ---
 
-### Metode 2: Menggunakan Jupyter Notebook Classic / JupyterLab
+### Langkah Minimal (3 Langkah)
 
-Jika Anda lebih terbiasa menggunakan antarmuka peramban (*web browser*):
+```
+1. Pastikan Python 3.9+ terinstal
+2. Letakkan folder data/ berisi file CSV di samping notebook
+3. Buka notebook dan klik Run All
+```
 
-1. **Buka Command Prompt (CMD) atau Terminal:**
-   Masuk ke direktori proyek:
-   ```bash
-   cd "c:\Data D\Semester 7\VISDAT\MIDTERM"
-   ```
+---
 
-2. **Buat Virtual Environment & Instal Pustaka:**
-   ```bash
-   python -m venv venv
-   .\venv\Scripts\activate
-   pip install -r requirements.txt
-   ```
+### Metode 1: VS Code (Paling Direkomendasikan)
 
-3. **Jalankan Server Jupyter:**
-   ```bash
-   jupyter notebook
-   ```
-   Browser Anda akan terbuka secara otomatis menampilkan direktori proyek.
+1. **Buka folder proyek di VS Code:**  
+   Pilih menu **File > Open Folder...** → arahkan ke folder `MIDTERM`.
 
-4. **Buka dan Eksekusi:**
-   - Klik pada file `covid19_time_series_visualization.ipynb`.
-   - Pilih menu **Cell > Run All** (atau **Kernel > Restart & Run All**).
+2. **Buka file notebook:**  
+   Klik `covid19_time_series_visualization.ipynb` di panel kiri.
+
+3. **Pilih Python interpreter:**  
+   Klik **Select Kernel** (pojok kanan atas) → **Python Environments...** → pilih Python 3.9+ yang terinstal di komputer Anda.  
+   *(Tidak perlu membuat virtual environment—interpreter bawaan Python sudah cukup).*
+
+4. **Jalankan notebook:**  
+   Klik tombol **▶▶ Run All** di bilah atas notebook.  
+   Sel `AUTO-SETUP` di awal akan otomatis menginstal pustaka yang belum ada.
+
+---
+
+### Metode 2: Jupyter Notebook Classic / JupyterLab
+
+```bash
+# 1. Buka terminal dan masuk ke folder proyek
+cd "MIDTERM"
+
+# 2. Instal Jupyter jika belum ada (hanya sekali)
+pip install notebook
+
+# 3. Jalankan server Jupyter
+jupyter notebook
+```
+
+Browser akan terbuka secara otomatis. Klik `covid19_time_series_visualization.ipynb`, lalu pilih menu **Kernel > Restart & Run All**.  
+Sel `AUTO-SETUP` akan menginstal sisa dependensi secara otomatis.
+
+---
+
+### Catatan Khusus: Komputer Tanpa Koneksi Internet
+
+Jika komputer yang digunakan tidak memiliki akses internet, instal dependensi terlebih dahulu secara manual sebelum membuka Jupyter:
+
+```bash
+pip install pandas numpy matplotlib seaborn ipykernel notebook
+```
 
 ---
 

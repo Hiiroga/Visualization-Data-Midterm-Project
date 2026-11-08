@@ -216,28 +216,5 @@ Seluruh hasil berikut dihitung secara langsung (*programmatically*) dari dataset
 
 ---
 
-## Troubleshooting & FAQ
-
-**Q1: Muncul error `FileNotFoundError: Terdapat berkas yang belum tersedia di folder data` saat menjalankan sel 4.**  
-> **Solusi:** Pastikan folder `./data/` berada persis di samping file `.ipynb` dan memuat file `day_wise.csv` serta `full_grouped.csv`. Jika menjalankan via VS Code, pastikan *Current Working Directory* terminal atau *Workspace Folder* mengarah ke folder `MIDTERM`.
-
-**Q2: Mengapa label di grafik multiple time series terpotong di tepi kanan?**  
-> **Solusi:** Di dalam kode sel 7.3, batas sumbu X telah ditambahkan padding otomatis sebesar `+ pd.Timedelta(days=38)` dan parameter `clip_on=False`. Pastikan seluruh sel dieksekusi secara berurutan.
-
-**Q3: Di mana gambar grafik disimpan?**  
-> **Solusi:** Setiap kali sel visualisasi dijalankan, fungsi utilitas `save_fig()` akan secara otomatis mengekspor grafik ke folder `./figures/` dengan format PNG resolusi 150 DPI.
-
----
-
-## Catatan Pengumpulan Tugas
-
-Sebelum mengumpulkan file notebook (`.ipynb`):
-1. **Personalisasi Identitas Mahasiswa:**
-   - Buka bagian **Header Notebook** dan **Bagian 11 (AI Usage Declaration)**.
-   - Ganti teks placeholder `[Nama Lengkap]` dan `[NIM]` dengan identitas resmi Anda.
-2. **Restart & Run All:**
-   - Jalankan perintah *Restart Kernel & Run All Cells* untuk memastikan seluruh sel kode dieksekusi secara bersih dan seluruh visualisasi ter-render dari awal hingga akhir tanpa eror.
-
----
-*Dibuat untuk keperluan akademik Mata Kuliah Visualisasi Data (2024).*
+*Dibuat untuk keperluan akademik Mata Kuliah Visualisasi Data (2026).*
 

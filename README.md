@@ -23,6 +23,7 @@ Repositori ini berisi proyek analisis dan visualisasi data runtun waktu (*time s
   - [4. Calendar Heatmap (Pola Musiman Intra-Mingguan)](#4-calendar-heatmap-pola-musiman-intra-mingguan)
   - [5. Trend Analysis (Moving Average 7-Day & 30-Day SMA)](#5-trend-analysis-moving-average-7-day--30-day-sma)
 - [Ringkasan Temuan Utama Berbasis Data](#ringkasan-temuan-utama-berbasis-data)
+- [Keterbatasan Analisis](#keterbatasan-analisis)
 - [Troubleshooting & FAQ](#troubleshooting--faq)
 - [Catatan Pengumpulan Tugas](#catatan-pengumpulan-tugas)
 
@@ -37,6 +38,8 @@ Proyek ini mengeksplorasi dataset epidemiologi global COVID-19 dengan fokus pada
 2. Menangani anomali data seperti nilai harian negatif hasil revisi retrospektif melalui metode *clipping* ke 0 yang terjustifikasi.
 3. Mengimplementasikan minimal empat tipe visualisasi *time series* dengan standar estetika akademis tinggi (*data-ink ratio*, pelabelan langsung, tipografi terstandarisasi).
 4. Menganalisis tren menggunakan *Simple Moving Average* (SMA) dengan jendela 7 hari dan 30 hari serta mengevaluasi *trade-off* antara *smoothing* dan *lag*.
+
+> **Catatan metodologis:** Analisis ini bersifat deskriptif-eksploratif berbasis data observasional. Pola pertumbuhan berlipat ganda yang semakin cepat (*accelerating doubling time*) terlihat dari data, namun penyebab naik/turunnya kasus di suatu negara tidak dapat ditentukan hanya dari dataset ini.
 
 ---
 
@@ -70,7 +73,7 @@ MIDTERM/
 │   ├── viz2b_stacked_area.png          # Visualisasi 2b: Stacked area plot per WHO region
 │   ├── viz3_multi_ts.png               # Visualisasi 3: Multiple time series direct labeling
 │   ├── viz4_calendar_heatmap.png       # Visualisasi 4: Calendar heatmap siklus mingguan
-│   └── viz8_moving_average.png         # Visualisasi 5: Trend analysis 7MA vs 30MA
+│   └── viz5_moving_average.png         # Visualisasi 5: Trend analysis 7MA vs 30MA
 ├── covid19_time_series_visualization.ipynb  # Jupyter Notebook UTAMA tugas UTS
 ├── requirements.txt                     # Daftar pustaka Python yang dibutuhkan
 └── README.md                            # Dokumentasi lengkap proyek
@@ -170,8 +173,9 @@ Notebook ini memenuhi seluruh persyaratan penugasan dengan 4 tipe visualisasi wa
 
 ### 4. Calendar Heatmap (Pola Musiman Intra-Mingguan)
 - **Tujuan:** Mereorganisasi deret waktu linear ke dalam matriks dua dimensi berstruktur **ISO Calendar Week (baris) × Day of Week (kolom)**.
-- **Skema Warna:** Palet sekuensial `YlOrRd` (Kuning ke Merah Tua) yang memetakan intensitas penularan dari rendah ke sangat tinggi.
-- **Analisis Pola:** Menguantifikasi fenomena *weekend reporting deficit* pada agregat data global.
+- **Normalisasi:** Nilai dinormalisasi per minggu (nilai = kasus harian / rata-rata minggu itu) sehingga pola intra-mingguan terlihat terlepas dari tren naik.
+- **Skema Warna:** Palet diverging `RdBu_r` berpusat di 1,0 (biru = di bawah rata-rata minggu, merah = di atas rata-rata minggu).
+- **Analisis Pola:** Menguantifikasi fenomena *weekend reporting deficit* menggunakan rasio ternormalisasi pada agregat data global.
 
 ### 5. Trend Analysis (Moving Average 7-Day & 30-Day SMA)
 - **Metodologi:** Menerapkan *Simple Moving Average* trailing/kausal secara eksklusif pada metrik penambahan kasus harian (`New cases`).
@@ -188,14 +192,27 @@ Seluruh hasil berikut dihitung secara langsung (*programmatically*) dari dataset
 
 | Metrik Epidemiologis | Nilai Temuan Empiris | Interpretasi Analitis |
 |:---|:---:|:---|
-| **Total Kasus Kumulatif Global** | **$16.480.485$ jiwa** | Akumulasi tercatat hingga 27 Juli 2020 di 187 negara. |
-| **Total Kematian Global** | **$654.036$ jiwa** | Menghasilkan Case Fatality Rate (CFR) global sebesar **$3,97\%$**. |
-| **Waktu Tempuh Milestone** | **0 ke 1M: 71 hari**<br>**1M ke 10M: 87 hari** | Karakteristik eksponensial terkonfirmasi dari percepatan waktu penggandaan. |
-| **Puncak Kasus Baru Harian** | **$282.756$ kasus** | Terjadi pada **23 Juli 2020** (7-Day MA pada puncak: $242.581$ kasus). |
-| **Top 3 Negara Teratas** | **US ($26,03\%$)**, Brazil, India | Ketiga negara mencakup **$49,83\%$** (hampir separuh) dari total beban kasus dunia. |
-| **Wilayah WHO Terbesar** | **Americas ($53,59\%$)** | Menggantikan posisi Eropa sebagai episentrum global sejak Mei 2020. |
-| **Efektivitas Mitigasi Jerman** | **Penurunan $90,73\%$** | 7-Day MA turun dari puncak $5.837$ (April) menjadi hanya $541$ kasus (Juli). |
-| **Defisit Akhir Pekan Global** | **$2,07\%$** | Rata-rata akhir pekan ($86.467$) vs hari kerja ($88.296$). Teredam oleh agregasi multinasional. |
+| **Total Kasus Kumulatif Global** | **16.480.485 kasus** | Akumulasi tercatat hingga 27 Juli 2020 di 187 negara. |
+| **Total Kematian Global** | **654.036 jiwa** | Menghasilkan *naive* Case Fatality Rate (CFR) global sebesar **3,97%** (tidak memperhitungkan kapasitas testing). |
+| **Waktu Tempuh Milestone** | **0 ke 1 Juta: 71 hari**<br>**5 Juta ke 10 Juta: 38 hari** | Laju penggandaan yang semakin cepat menunjukkan pertumbuhan berlipat ganda yang semakin cepat selama periode observasi. |
+| **Puncak Kasus Baru Harian** | **282.756 kasus** | Terjadi pada **23 Juli 2020** (7-Day MA pada puncak: 242.581 kasus). |
+| **Top 3 Negara Teratas** | **US (26,03%)**, Brazil, India | Ketiga negara mencakup **49,83%** (hampir separuh) dari total beban kasus dunia. |
+| **Wilayah WHO Terbesar** | **Americas (53,59%)** | Berdasarkan data viz2b, Americas menggantikan posisi Eropa sebagai kontributor terbesar sejak Mei 2020. |
+| **Penurunan Kasus Jerman** | **Penurunan 90,73%** dari puncak | 7-Day MA turun dari puncak 5.837 (April) menjadi hanya 541 kasus (Juli); penyebab penurunan tidak dapat ditentukan hanya dari data ini. |
+| **Defisit Akhir Pekan Global** | **2,07% (raw)** | Rata-rata akhir pekan (86.467) vs hari kerja (88.296). Teredam oleh agregasi multinasional. |
+
+---
+
+## Keterbatasan Analisis
+
+> [!WARNING]
+> Interpretasi hasil harus mempertimbangkan batasan-batasan data berikut:
+
+1. **Rentang Waktu Terbatas:** Data berakhir 27 Juli 2020; gelombang Delta, Omicron, dan dampak program vaksinasi global tidak tercakup dalam analisis ini.
+2. **Under-reporting Sistematis:** Kapasitas *testing* berbeda antar negara secara signifikan. Negara dengan kapasitas testing rendah cenderung melaporkan kasus lebih sedikit, sehingga perbandingan antar negara bersifat indikatif, bukan absolut.
+3. **Revisi Retrospektif:** Nilai harian negatif akibat revisi data retrospektif (seperti lonjakan 13 Februari 2020 di Hubei) di-*clip* ke 0 dalam preprocessing; hal ini mengubah distribusi harian secara lokal.
+4. **Tanpa Normalisasi Per Kapita:** Perbandingan antar negara tidak mempertimbangkan ukuran populasi, sehingga negara berpenduduk besar cenderung dominan dalam ranking kasus absolut.
+5. **Naive CFR:** Case Fatality Rate 3,97% dihitung sebagai Deaths/Confirmed × 100; nilai ini bukan IFR (*Infection Fatality Rate*) yang sebenarnya karena tidak memperhitungkan kasus tidak terdeteksi.
 
 ---
 

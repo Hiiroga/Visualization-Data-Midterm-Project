@@ -88,18 +88,22 @@ MIDTERM/
 - **Python 3.9+** — unduh dari [python.org](https://www.python.org/downloads/)
 - **Jupyter** — bisa via [VS Code](https://code.visualstudio.com/) (paling mudah) atau Jupyter Classic
 
-> **Notebook ini memiliki sel auto-install di bagian atas.**  
-> Ketika dijalankan pada komputer baru, sel pertama kode akan secara otomatis memeriksa dan menginstal semua pustaka yang belum ada. Anda **tidak perlu** menjalankan `pip install` secara manual.
+> **Notebook ini sepenuhnya portable — tidak butuh setup manual.**
+> - Sel AUTO-SETUP **otomatis menginstal** semua pustaka yang belum ada.
+> - Sel AUTO-SETUP juga **otomatis mengunduh** file dataset dari GitHub jika belum ada di lokal.
+> - Hanya membutuhkan koneksi internet pada **run pertama** saja.
 
 ---
 
-### Langkah Minimal (3 Langkah)
+### Langkah Minimal — Hanya 2 Langkah! ✨
 
 ```
 1. Pastikan Python 3.9+ terinstal
-2. Letakkan folder data/ berisi file CSV di samping notebook
-3. Buka notebook dan klik Run All
+2. Buka notebook dan klik Run All
 ```
+
+> **Tidak perlu menyiapkan data secara manual.**  
+> Sel AUTO-SETUP akan otomatis membuat folder `data/` dan mengunduh kedua file CSV langsung dari GitHub saat pertama kali dijalankan. Koneksi internet diperlukan hanya pada run pertama.
 
 ---
 
@@ -229,15 +233,5 @@ Seluruh hasil berikut dihitung secara langsung (*programmatically*) dari dataset
 
 ---
 
-## Catatan Pengumpulan Tugas
-
-Sebelum mengumpulkan file notebook (`.ipynb`):
-1. **Personalisasi Identitas Mahasiswa:**
-   - Buka bagian **Header Notebook** dan **Bagian 11 (AI Usage Declaration)**.
-   - Ganti teks placeholder `[Nama Lengkap]` dan `[NIM]` dengan identitas resmi Anda.
-2. **Restart & Run All:**
-   - Jalankan perintah *Restart Kernel & Run All Cells* untuk memastikan seluruh sel kode dieksekusi secara bersih dan seluruh visualisasi ter-render dari awal hingga akhir tanpa eror.
-
----
-*Dibuat untuk keperluan akademik Mata Kuliah Visualisasi Data (2024).*
+*Dibuat untuk keperluan akademik Mata Kuliah Visualisasi Data (2026).*
 
